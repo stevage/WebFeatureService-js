@@ -119,7 +119,7 @@ operations.forEach(function(operation) {
 
     // ensure that a url has been supplied
     if (! opts.url) {
-      return callback(new Error('A url is required for a "' + operation + '" requuest'));
+      return callback(new Error('A url is required for a "' + operation + '" request'));
     }
 
     // get the xml for the specified request
@@ -128,9 +128,13 @@ operations.forEach(function(operation) {
         url: opts.url,
         body: xml
       };
+      if (opts.auth) {
+        requestOpts.auth = opts.auth;
+      }
 
       debug('generated xml for operation "' + operation + '"', xml);
       debug('making request to: ' + opts.url);
+      debug('POST body: ', requestOpts.body);
 
       request.post(requestOpts, function(err, response, body) {
         if (err) {

@@ -12,19 +12,28 @@ const service = new WFS({
     url: 'https://maps-public.geo.nyu.edu/geoserver/sdr/wfs'
 });
 
+service.getCapabilities().then(caps => {
+    console.log(caps.FeatureTypeList[0].FeatureType.length + ' feature types.');
+});
+
 service.getFeature({
   typeName: 'sdr:nyu_2451_34564',
   maxFeatures: 15,
-  bbox: [40.88, -74, 41, -73.6],
-  propertyName: ['name', 'geom']
+  // Can't use bbox with cql_filter
+  // bbox: [40.88, -74, 41, -73.6],
+
+  propertyName: ['name', 'type'],
+  cql_filter:"type='Cemetery' AND borough='Queens'"
 }).then(results => {
   if (results.features) {
-    console.log('found ' + results.features.length + ' parks');
+    console.log('Found ' + results.features.length + ' cemeteries in Queens');
     results.features.forEach(function(feature) {
       console.log(`${feature.properties.name} (feature id: ${feature.id})`);
-      console.log(feature);
+      // console.log(feature);
     });
   }
+}).catch(e => {
+    console.error(e);
 });
 ```
 

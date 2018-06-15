@@ -1,9 +1,15 @@
 /* jshint node: true, esnext:true */
 'use strict';
 
-var debug = require('debug')('wfs');
-var request = require('request-promise');
-var stripBom = require('strip-bom');
+const debug = require('debug')('wfs');
+const request = require('request-promise');
+const stripBom = require('strip-bom');
+
+const xml2json = (xml) => new Promise((resolve, reject) =>
+    require('xml2js').parseString(xml, (err, res) => {
+        if (err) { return reject(err); } else { return resolve(res); }
+    })
+);
 
 let webFeatureService = class {
     constructor(params) {
@@ -19,7 +25,7 @@ let webFeatureService = class {
         }, options);
     }
 
-    makeRequest(operation, options, callback) {
+    makeRequest(operation, options, allowXml) {
         var requestOpts = {
             url: this.url + '?',
             auth: this.auth,
@@ -29,15 +35,34 @@ let webFeatureService = class {
         debug('making request to: ' + requestOpts.url);
         debug(JSON.stringify(requestOpts));
         return request.get(requestOpts).then(result => {
-            if (typeof result !== 'object') {
+            if (typeof result === 'string' && result[0] === '<') {
+                const j = xml2json(result);
+                if (allowXml) {
+                    return xml2json(result);
+                } else {
+                    return xml2json(result).then(j => { 
+                        j = j['ows:ExceptionReport'] || j;
+                        j = j['ows:Exception'] || j;
+                        j = j[0] || j;
+                        j = j['ows:ExceptionText'] || j;
+                        j = j[0] || j;
+                        throw j;
+                    });
+                }
+            } else if (typeof result === 'object') {
+                return result;
+            } else {
                 throw result;
             }
-            return result;
         });
     }
-
+    /*
+        Return capabilities of server, as JSON. For convenience, the root node is removed.
+    */
     getCapabilities(options) {
-        return this.makeRequest('GetCapabilities', options);
+        return this.makeRequest('GetCapabilities', options, true)
+        // .then(xml2json)
+        .then(json => json['wfs:WFS_Capabilities']);
     }
 
     /*

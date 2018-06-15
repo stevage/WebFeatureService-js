@@ -6,7 +6,11 @@ const request = require('request-promise');
 const stripBom = require('strip-bom');
 
 const xml2json = (xml) => new Promise((resolve, reject) =>
-    require('xml2js').parseString(xml, (err, res) => {
+    require('xml2js').parseString(xml, {
+        explicitRoot: false,
+        explicitArray: false,
+        mergeAttrs: true
+    }, (err, res) => {
         if (err) { return reject(err); } else { return resolve(res); }
     })
 );
@@ -60,9 +64,21 @@ let webFeatureService = class {
         Return capabilities of server, as JSON. For convenience, the root node is removed.
     */
     getCapabilities(options) {
-        return this.makeRequest('GetCapabilities', options, true)
-        // .then(xml2json)
-        .then(json => json['wfs:WFS_Capabilities']);
+        return this.makeRequest('GetCapabilities', options, true);
+    }
+
+    /*
+        A convenience wrapper to get the list of feature types available.
+        Returns an array of objects: [{
+            Name
+            Type
+            Abstract
+            ...
+        },...]
+    */
+    getFeatureTypes(options) {
+        return this.getCapabilities(options)
+            .then(caps => caps.FeatureTypeList.FeatureType);
     }
 
     /*

@@ -1,5 +1,5 @@
 {
-  "name": "WebFeatureService",
+  "name": "webfeatureservice",
   "description": "WebFeatureService client based on request-promise",
   "author": "Steve Bennett <me@stevebennett.me>",
   "contributors": [

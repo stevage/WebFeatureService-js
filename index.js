@@ -28,7 +28,12 @@ let webFeatureService = class {
         };
         debug('making request to: ' + requestOpts.url);
         debug(JSON.stringify(requestOpts));
-        return request.get(requestOpts);
+        return request.get(requestOpts).then(result => {
+            if (typeof result !== 'object') {
+                throw result;
+            }
+            return result;
+        });
     }
 
     getCapabilities(options) {
@@ -40,6 +45,8 @@ let webFeatureService = class {
             typeName (required): layer name to retrieve features for
             maxFeatures: maximum number of features to return.
             propertyName: string or array of properties to include. if geometry not included, you get no geom.
+            bbox: [miny, minx, maxy, maxx]
+            cql_filter: filter as described here http://docs.geoserver.org/latest/en/user/tutorials/cql/cql_tutorial.html
         })
     */
     getFeature(options, callback) {

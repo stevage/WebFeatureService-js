@@ -6,7 +6,7 @@ client for JavaScript.
 
 ## Usage
 
-```
+```js
 const WFS = require('./index');
 const service = new WFS({
     url: 'http://.../wfs',

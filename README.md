@@ -4,6 +4,34 @@
 This is a simple [WFS](http://en.wikipedia.org/wiki/Web_Feature_Service)
 client for JavaScript.
 
+## Usage
+
+```
+const WFS = require('./index');
+const service = new WFS({
+    url: 'http://.../wfs',
+    auth: {
+        username: 'myuser',
+        password: 'secret'
+    }
+});
+```
+
+
+Standard WFS operations:
+
+* `service.getCapabilities()`
+* `service.describeFeatureType()`
+* `service.getFeature()`
+
+Additional convenience wrappers:
+
+* `service.getColumns()`
+* `service.getColumnNames()`
+* `service.getGeometryColumn()`
+* `service.getNonGeometryColumns()`
+* `service.getFeatureProperties()`
+
 ## Example Usage
 
 ```js

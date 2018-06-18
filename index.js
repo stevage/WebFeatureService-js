@@ -3,6 +3,8 @@
 
 const debug = require('debug')('wfs');
 const request = require('request-promise');
+const Querystring = require("request/lib/querystring.js").Querystring; 
+Querystring.prototype.unescape = decodeURI;
 const stripBom = require('strip-bom');
 const csvjson = require('csvjson');
 
@@ -38,7 +40,7 @@ let webFeatureService = class {
 
     makeRequest(operation, options, allowXml) {
         var requestOpts = {
-            url: this.url + '?',
+            url: this.url + (/\?^/.test(this.url) ? '' : '?'),
             auth: this.auth,
             json: true,
             qs: this.getUrlParams(operation, options, allowXml),

@@ -20,9 +20,18 @@ const service = new WFS({
 
 Standard WFS operations:
 
+Each takes an `options` object, which is passed directly to the WFS service. Standard options are listed here for convenience.
+
 * `service.getCapabilities()`
 * `service.describeFeatureType()`
+   `typeName` (required): layer name to describe
 * `service.getFeature()`
+  * `typeName` (required): layer name to retrieve features for
+  * `maxFeatures`: maximum number of features to return.
+  * `propertyName`: string or array of properties to include. if geometry not included, you get no geom.
+  * `bbox:` [miny, minx, maxy, maxx]
+  * `cql_filter`: filter as described [here](http://docs.geoserver.org/latest/en/user/tutorials/cql/cql_tutorial.html).
+  * `outputFormat`: string (CSV|application/json|text/javascript/shape-zip|GML2|GML3) ([Docs](http://docs.geoserver.org/latest/en/user/services/wfs/outputformats.html)). If CSV, CSV requested and automatically parsed, returned as object
 
 Additional convenience wrappers:
 

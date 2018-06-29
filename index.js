@@ -44,12 +44,15 @@ let webFeatureService = class {
             auth: this.auth,
             json: true,
             qs: this.getUrlParams(operation, options, allowXml),
+            headers: this.headers || {},
             resolveWithFullResponse: true
         };
         debug('making request to: ' + requestOpts.url);
         debug(JSON.stringify(requestOpts));
         return request.get(requestOpts).then(response => {
-            debug('Response from ' + response.request.href);
+            debug('Response from ', response.request.href);
+            // debug('Request Headers: ', response.request.headers);
+            // debug('Response Headers: ', response.headers);
             let result = response.body;
             if (typeof result === 'string' && result[0] === '<') {
                 const j = xml2json(result);

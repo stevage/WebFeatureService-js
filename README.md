@@ -1,4 +1,9 @@
-# Getting started
+# WebFeatureService
+
+This is a simple [WFS](http://en.wikipedia.org/wiki/Web_Feature_Service)
+client for JavaScript.
+
+## Getting started
 
 To use this module directly in a simple HTML site:
 
@@ -23,11 +28,6 @@ then
 const WFS = require('webfeatureservice');
 // ...
 ```
-
-# WebFeatureService
-
-This is a simple [WFS](http://en.wikipedia.org/wiki/Web_Feature_Service)
-client for JavaScript.
 
 ## Usage
 

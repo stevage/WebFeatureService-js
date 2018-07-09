@@ -1,3 +1,28 @@
+# Getting started
+
+To use this module directly in a simple HTML site:
+
+```html
+<script src="https://unpkg.com/webfeatureservice/umd/index.js"></script>
+...
+<script>
+    const service = new WebFeatureService({ url: 'http://example.com/wfs' });
+    ...
+</script>
+```
+
+To use with Browserify, Webpack, Parcel etc:
+
+```bash
+npm install webfeatureservice
+```
+
+then
+
+```js
+const WFS = require('webfeatureservice');
+// ...
+```
 
 # WebFeatureService
 
@@ -7,7 +32,7 @@ client for JavaScript.
 ## Usage
 
 ```js
-const WFS = require('./index');
+const WFS = require('webfeatureservice');
 const service = new WFS({
     url: 'http://.../wfs',
     auth: {
@@ -44,7 +69,7 @@ Additional convenience wrappers:
 ## Example Usage
 
 ```js
-const WFS = require('./index');
+const WFS = require('webfeatureservice');
 const service = new WFS({
     url: 'https://maps-public.geo.nyu.edu/geoserver/sdr/wfs'
 });

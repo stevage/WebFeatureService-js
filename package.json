@@ -13,8 +13,11 @@
   "scripts": {
     "build": "node node_modules/browserify/bin/cmd.js -s WebFeatureService index.js > umd/index.js "
   },
-  "files": ["index.js", "umd" ],
-  "version": "0.5.0",
+  "files": [
+    "index.js",
+    "umd"
+  ],
+  "version": "0.6.0",
   "dependencies": {
     "csvjson": "^5.0.0",
     "debug": "~2.6.8",

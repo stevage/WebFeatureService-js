@@ -18,7 +18,7 @@
     "index.js",
     "umd"
   ],
-  "version": "0.6.2",
+  "version": "0.6.3",
   "dependencies": {
     "csvjson": "^5.0.0",
     "debug": "~2.6.8",

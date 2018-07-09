@@ -105,10 +105,11 @@ let webFeatureService = class {
         getFeature({
             typeName (required): layer name to retrieve features for
             maxFeatures: maximum number of features to return.
-            propertyName: string or array of properties to include. if geometry not included, you get no geom.
+            propertyName: string or array of properties to include. If geometry column not included, you get no geometry.
             bbox: [miny, minx, maxy, maxx]
             cql_filter: filter as described here http://docs.geoserver.org/latest/en/user/tutorials/cql/cql_tutorial.html
             outputFormat: string. if CSV, CSV requested and automatically parsed, returned as object
+            sortBy: string, name of column to sort by.
         })
     */
     getFeature(options) {

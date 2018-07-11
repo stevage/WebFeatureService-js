@@ -18,6 +18,7 @@
     "index.js",
     "umd"
   ],
+  "unpkg": "umd/index.js",
   "version": "0.6.4",
   "dependencies": {
     "csvjson": "^5.0.0",
@@ -34,7 +35,6 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^16.2.2",
-    "uglify": "^0.1.5"
+    "browserify": "^16.2.2"
   }
 }

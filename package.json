@@ -19,7 +19,7 @@
     "umd"
   ],
   "unpkg": "umd/index.js",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "dependencies": {
     "csvjson": "^5.0.0",
     "debug": "~2.6.8",

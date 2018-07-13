@@ -8,7 +8,7 @@ client for JavaScript.
 To use this module directly in a simple HTML site:
 
 ```html
-<script src="https://unpkg.com/webfeatureservice/umd/index.js"></script>
+<script src="https://unpkg.com/webfeatureservice"></script>
 ...
 <script>
     const service = new WebFeatureService({ url: 'http://example.com/wfs' });
